@@ -4,16 +4,20 @@ from pydantic import BaseModel
 from typing import Any
 from collections import defaultdict, deque
 
-app = FastAPI(title="Pipeline Parser")
+app = FastAPI()
 
-# Allow requests from the React dev server
+# Configure CORS to allow the deployed Netlify app and local dev server
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[
+        "http://localhost:3000",
+        "https://melodic-fox-6e8efe.netlify.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 
 class PipelineRequest(BaseModel):
